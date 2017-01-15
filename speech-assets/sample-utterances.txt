@@ -1,0 +1,1 @@
+PlayerRankingIntent who is the number {Rank} ranked {Gender}

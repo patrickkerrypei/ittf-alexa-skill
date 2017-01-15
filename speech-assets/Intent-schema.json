@@ -1,0 +1,29 @@
+{
+  "intents": [
+    {
+      "intent": "HelloIntent"
+    },
+    {
+      "intent": "PlayerRankingIntent",
+      "slots": [
+        {
+          "name": "Rank",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Gender",
+          "type": "LIST_OF_GENDERS"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
