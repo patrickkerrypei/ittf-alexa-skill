@@ -29,6 +29,8 @@ def launched():
                      'gender': 'Gender'},
             convert={'rank': int})
 def player_ranking(rank, gender):
+    if rank < 1:
+        return statement('No such ranking can exist')
     return statement('The number {} ranked {} is {}'
                      .format(rank, gender, get_single_player_ranking(rank, gender)))
 

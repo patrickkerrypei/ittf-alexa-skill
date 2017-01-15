@@ -14,19 +14,9 @@ response = session.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
 tables = soup.find_all('table')[0].find_all('table')
-
-# for index, table in enumerate(tables):
-#     if str(table).find('hendong') > -1:
-#         print table
-#         print index
-#         break
-# print len(tables)
-
 rankings_table = tables[10]
 player_rows = [row for row in rankings_table.find_all('tr') if row.find('td', {'align': 'center'}) and row.find('td').has_attr('bgcolor')]
 
 for row in player_rows:
     name = row.find_all('td')[2].find('font').text
     print ''.join(list(name.encode('utf-8'))[:-7]).title()
-# name = player_rows[0].find_all('td')[2].find('font').text
-# print list(name.encode('utf-8'))
