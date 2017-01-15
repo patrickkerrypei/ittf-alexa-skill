@@ -1,0 +1,8 @@
+# Virtualenv
+venv/
+
+# PhantomJS Driver
+ghostdriver.log
+
+# IntelliJ
+.idea/
