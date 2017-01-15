@@ -1,1 +1,7 @@
 PlayerRankingIntent who is the number {Rank} ranked {Gender}
+PlayerRankingIntent who's the number {Rank} ranked {Gender}
+PlayerRankingIntent who is the number {Rank} {Gender}
+PlayerRankingIntent who's the number {Rank} {Gender}
+PlayerRankingIntent tell me who the number {Rank} ranked {Gender} is
+PlayerRankingIntent tell me who the number {Rank} {Gender} is
+
