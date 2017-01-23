@@ -6,3 +6,6 @@ ghostdriver.log
 
 # IntelliJ
 .idea/
+
+# Node
+node_modules
