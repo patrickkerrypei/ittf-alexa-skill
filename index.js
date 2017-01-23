@@ -93,6 +93,8 @@ exports.handler = (event, context) => {
         if (event.session.application.applicationId !== "amzn1.ask.skill.b105a9ba-fd34-467e-91b2-e85b2bbbd88d") {
             context.fail("Invalid Application ID");
         }
+    } catch (e) {
+        console.error(e.message);
     }
 
     let unofficialITTF = new UnofficialITTF();
