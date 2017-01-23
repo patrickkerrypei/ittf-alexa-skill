@@ -28,7 +28,7 @@ let APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-valu
 /**
  * The AlexaSkill prototype and helper functions
  */
-const AlexaSkill = require('./AlexaSkill');
+const AlexaSkill = require('./alexaSkill');
 const ittfUtils = require('./ittfUtils');
 
 let UnofficialITTF = function () {
