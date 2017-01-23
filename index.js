@@ -29,7 +29,7 @@ let APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-valu
  * The AlexaSkill prototype and helper functions
  */
 const AlexaSkill = require('./AlexaSkill');
-const $ = require('jquery');
+const ittfUtils = require('./ittfUtils');
 
 let UnofficialITTF = function () {
     AlexaSkill.call(this, APP_ID);
@@ -42,12 +42,11 @@ UnofficialITTF.prototype.constructor = UnofficialITTF;
 UnofficialITTF.prototype.eventHandlers.onSessionStarted = (sessionStartedRequest, session) => {
     console.log("UnofficialITTF onSessionStarted requestId: " + sessionStartedRequest.requestId
         + ", sessionId: " + session.sessionId);
-    // any initialization logic goes here
 };
 
 UnofficialITTF.prototype.eventHandlers.onLaunch = (launchRequest, session, response) => {
-    let introduction = "Welcome to the Unofficial ITTF Alexa skill, you can ask me about Men\'s and Women\'s table tennis world rankings. " +
-        "In the future, I will support more complex queries.";
+    let introduction = "Welcome to the Unofficial ITTF Alexa skill, you can ask me about Men\'s and Women\'s" +
+        " table tennis world rankings. In the future, I will support more complex queries.";
     response.tell(introduction);
 };
 
@@ -59,9 +58,24 @@ UnofficialITTF.prototype.eventHandlers.onSessionEnded = (sessionEndedRequest, se
 UnofficialITTF.prototype.intentHandlers = {
     // register custom intent handlers
     "PlayerRankingIntent": (intent, session, response) => {
-        const rank = intent.slots.Rank.value;
-        const gender = intent.slots.Gender.value;
-        response.tell("Rank: " + rank + " and Gender: " + gender);
+        let rank = intent.slots.Rank.value;
+        let gender = intent.slots.Gender.value;
+
+        const menKeywords = ['male', 'males', 'men', 'man', 'guys', 'guy'];
+        const womenKeywords = ['girl', 'girls', 'lady', 'ladies', 'female', 'females', 'women', 'woman'];
+        let genderLetter = menKeywords.indexOf(gender) > -1 ? 'M' : 'W';
+
+        if (rank >= 1 && rank <= 840) {
+            ittfUtils.getPlayer(rank, genderLetter)
+                .then(name => {
+                    let reply = `The number ${rank} ranked ${gender} is ${name}`;
+                    response.tell(reply);
+                });
+        } else {
+            let reply = 'Please try again with a valid rank';
+            response.tell(reply);
+        }
+
     },
     "AMAZON.HelpIntent": (intent, session, response) => {
         response.ask("You can say hello to me!", "You can say hello to me!");
@@ -70,9 +84,8 @@ UnofficialITTF.prototype.intentHandlers = {
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = (event, context) =>   {
-    // Create an instance of the UnofficialITTF skill.
-    var helloWorld = new UnofficialITTF();
-    helloWorld.execute(event, context);
+    let unofficialITTF = new UnofficialITTF();
+    unofficialITTF.execute(event, context);
 };
 
 // class UnofficialITTF extends AlexaSkill {

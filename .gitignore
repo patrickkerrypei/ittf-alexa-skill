@@ -9,3 +9,6 @@ ghostdriver.log
 
 # Node
 node_modules
+
+# Compressed zip
+ittf-alexa-skill.zip

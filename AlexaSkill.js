@@ -17,7 +17,7 @@ function AlexaSkill(appId) {
 AlexaSkill.speechOutputType = {
     PLAIN_TEXT: 'PlainText',
     SSML: 'SSML'
-}
+};
 
 AlexaSkill.prototype.requestHandlers = {
     LaunchRequest: function (event, context, response) {
