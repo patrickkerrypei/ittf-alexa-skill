@@ -1,12 +1,12 @@
 /**
-    Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
-    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+ Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
 
-        http://aws.amazon.com/apache2.0/
+ http://aws.amazon.com/apache2.0/
 
-    or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
+ or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
 
 'use strict';
 
@@ -83,7 +83,18 @@ UnofficialITTF.prototype.intentHandlers = {
 };
 
 // Create the handler that responds to the Alexa Request.
-exports.handler = (event, context) =>   {
+exports.handler = (event, context) => {
+    try {
+        console.log("event.session.application.applicationId=" + event.session.application.applicationId);
+        /**
+         * Uncomment this if statement and populate with your skill's application ID to
+         * prevent someone else from configuring a skill that sends requests to this function.
+         */
+        if (event.session.application.applicationId !== "amzn1.ask.skill.b105a9ba-fd34-467e-91b2-e85b2bbbd88d") {
+            context.fail("Invalid Application ID");
+        }
+    }
+
     let unofficialITTF = new UnofficialITTF();
     unofficialITTF.execute(event, context);
 };
