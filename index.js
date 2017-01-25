@@ -45,9 +45,11 @@ UnofficialITTF.prototype.eventHandlers.onSessionStarted = (sessionStartedRequest
 };
 
 UnofficialITTF.prototype.eventHandlers.onLaunch = (launchRequest, session, response) => {
-    let introduction = "Welcome to the Unofficial ITTF Alexa skill, you can ask me about Men\'s and Women\'s" +
-        " table tennis world rankings. In the future, I will support more complex queries.";
-    response.tell(introduction);
+    const text = "Welcome to Unofficial ITTF, you can ask me about Men\'s and Women\'s" +
+        " table tennis world rankings.";
+    const question = "What would you like to know?";
+
+    response.ask(text, question);
 };
 
 UnofficialITTF.prototype.eventHandlers.onSessionEnded = (sessionEndedRequest, session) => {
@@ -78,7 +80,20 @@ UnofficialITTF.prototype.intentHandlers = {
 
     },
     "AMAZON.HelpIntent": (intent, session, response) => {
-        response.ask("You can say hello to me!", "You can say hello to me!");
+        const text = "You can ask me who is the number one ranked male";
+        const question = "What would you like to know?";
+
+        response.ask(text, question);
+    },
+    "AMAZON.StopIntent": (intent, session, response) => {
+        const text = "Goodbye";
+
+        response.tell(text);
+    },
+    "AMAZON.CancelIntent": (intent, session, response) => {
+        const text = "Goodbye";
+
+        response.tell(text);
     }
 };
 
