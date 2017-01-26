@@ -1,7 +1,21 @@
+/**
+ * @author Patrick Pei / github.com/patrickkerrypei
+ */
+
 'use strict';
 
 const superagent = require('superagent');
 const cheerio = require('cheerio');
+
+/**
+ * Format string so that only first letter is capitalized
+ * Note: String.prototype.charAt & String.prototype.slice handle out of bounds
+ * @param str
+ * @returns {string}
+ */
+const capitalizeFirst = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
 
 /**
  * Gets the player name of specified rank and gender
@@ -9,7 +23,6 @@ const cheerio = require('cheerio');
  * @param gender - 'M' / 'W'
  * @returns {Promise|String}
  */
-
 function getPlayer(ranking, gender) {
     const baseUrl = 'http://old.ittf.com/ittf_ranking/';
     const ageCategories = 'Age_category_1=&Age_category_2=&Age_category_3=&Age_category_4=&Age_category_5=&';
@@ -33,7 +46,9 @@ function getPlayer(ranking, gender) {
                 // 12 first entries are ITTF's table setup
                 tableEntries = tableEntries.slice(12);
                 // TODO: searching sibling nodes for reported rank in case of ties
-                const name = $(tableEntries[ranking - 1]).children().text().trim();
+                let name = $(tableEntries[ranking - 1]).children().text().trim();
+                let firstLast = name.split(' ');
+                name = firstLast.map(capitalizeFirst).join(' ');
 
                 resolve(name);
             });
